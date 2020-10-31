@@ -4,6 +4,7 @@ import numpy as np
 import glob 
 import DataProcessingTools as DPT 
 import os
+import matplotlib.pyplot as plt
 
 def arrangeMarkers(markers, timeStamps, samplingRate = 30000):
     rawMarkers = markers 

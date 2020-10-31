@@ -127,14 +127,24 @@ class RPLSplit(DPT.DPObject):
 				chxIndex = names.index(chxIndex[0])
 				channelNumbers.append(i)
 				channelIndexes.append(chxIndex)
-		if len(channelIndexes) > 0:
-			numOfIterations = int(np.ceil(len(channelIndexes) / 32))
-			for k in range(numOfIterations):
-				tempIndexes = channelIndexes[k*32:(k + 1) * 32]
-				tempNumbers = channelNumbers[k*32:(k + 1) * 32]
-				data = np.array(segment.analogsignals[index].load(time_slice=None, channel_indexes=tempIndexes))
-				for ind, idx in enumerate(tempIndexes):
-					print('Processing channel {:03d}'.format(tempNumbers[ind]))
-					process_channel(np.array(data[:, ind]), annotations, idx, analogInfo, tempNumbers[ind])
-				del data # to create RAM space to load in the next set of channel data. 
-		return 
+
+		if kwargs.get('byChannel',0):
+			for ind, idx in enumerate(channelIndexes):
+				data = np.array(segment.analogsignals[index].load(time_slice = None, channel_indexes = [idx]))
+				print('Processing channel {:03d}'.format(channelNumbers[ind]))
+				process_channel(data, annotations, idx, analogInfo, channelNumbers[ind])
+				del data # to create RAM space to load in the next channel data.
+			return 
+
+		else: 
+			if len(channelIndexes) > 0:
+				numOfIterations = int(np.ceil(len(channelIndexes) / 32))
+				for k in range(numOfIterations):
+					tempIndexes = channelIndexes[k*32:(k + 1) * 32]
+					tempNumbers = channelNumbers[k*32:(k + 1) * 32]
+					data = np.array(segment.analogsignals[index].load(time_slice=None, channel_indexes=tempIndexes))
+					for ind, idx in enumerate(tempIndexes):
+						print('Processing channel {:03d}'.format(tempNumbers[ind]))
+						process_channel(np.array(data[:, ind]), annotations, idx, analogInfo, tempNumbers[ind])
+					del data # to create RAM space to load in the next set of channel data. 
+			return 

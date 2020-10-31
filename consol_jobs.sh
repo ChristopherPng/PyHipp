@@ -18,6 +18,5 @@ cmd1="${cmd1} ~/shutdown_cluster.sh"
 
 cd ~
 
-echo $($cmd1)
+echo $cmd1
 eval $cmd1
-

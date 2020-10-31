@@ -76,7 +76,7 @@ class DPTobjectTemplate(DPT.DPObject):
         # in the menu evoked by right-clicking on the axis after the window is created by PanGUI.create_window
         # for more information, please check in PanGUI.main.create_menu
         plotOpts = {'PlotType': DPT.objects.ExclusiveOptions(['Channel', 'Array'], 0), \
-            'LabelsOff': False, 'TitleOff': False}
+            'LabelsOff': False, 'TitleOff': False, 'TicksOff': False}
 
         # update the plotOpts based on kwargs, these two lines are important to
         # receive the input arguments and act accordingly

@@ -19,10 +19,8 @@ class EDFSplit(DPT.DPObject):
     level = 'day'
 
     def __init__(self, *args, **kwargs):
-        # resolve levels into the day directory for creation of edfsplit object
-        rr = DPT.levels.resolve_level(self.level, os.getcwd())
-        with DPT.misc.CWD(rr):
-            DPT.DPObject.__init__(self, *args, **kwargs)
+        # create object in day directory
+        DPT.DPObject.__init__(self, *args, **kwargs)
 
     def create(self, *args, **kwargs):
         self.samples = pd.DataFrame()
@@ -194,10 +192,7 @@ class Eyelink(DPT.DPObject):
 
     def __init__(self, *args, **kwargs):
         # create object in session directory        
-        rr = DPT.levels.resolve_level(self.level, os.getcwd())
-        
-        with DPT.misc.CWD(rr):
-            DPT.DPObject.__init__(self, *args, **kwargs)
+        DPT.DPObject.__init__(self, *args, **kwargs)
 
     def create(self, *args, **kwargs):
         self.trial_timestamps = pd.DataFrame()

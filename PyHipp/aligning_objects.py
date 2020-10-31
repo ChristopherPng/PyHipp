@@ -37,6 +37,11 @@ def aligning_objects():
     rp = RPLParallel()
     el = Eyelink()
     
+    # check if triplets are aligned already
+    if round(rp.timeStamps[0][0],1) == round(el.timestamps[el.trial_timestamps[0][0]*1000],1) and rp.timeStamps[0][0] == uf.timeStamps[0][0][0]:
+        print('objects have already been aligned, exiting...')
+        return    
+    
     #%% convert to sample point units by multiplying with samplingRate
     el.session_start[0] = el.session_start[0]*el.samplingRate
     el.timestamps = el.timestamps*el.samplingRate
@@ -217,7 +222,7 @@ def aligning_objects():
         uf.unityTime[0] += true_session_start  
        
     else:
-        print('session start marker not recognized')
+        print('session start marker not recognised')
         print('unable to align timings accurately for now')        
     
         
@@ -248,7 +253,7 @@ def aligning_objects():
     uf.save()
     el.save()
     
-    print('finished aligning objects')
+    print('finish aligning objects')
             
 
 
