@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Oct 25 02:41:51 2020
 
-@author: Acer
-"""
 #!/data/miniconda3/envs/env1/bin/python
 
 from filelock import FileLock
@@ -66,7 +61,6 @@ with lock:
             # add code here
             # return env name
             env=clist[0]
-            
             print(env)
             clist.remove(env)
     # save hickle file
